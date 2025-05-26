@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invitación al Cine</title>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+        height: 100%;
+        font-family: cursive;
+        background: #f5f5f5;
+        overflow: hidden;
+        position: relative; /* <--- Añadido */
+    }
+    .container {
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at 50% 50%, transparent 20%, darkred 21% 28%, transparent 29%);
+        background-color: #706e6e;
+        background-size: 60px 60px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+    }
+    .page {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 100vw;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 2rem;
+      transition: left 1s ease-in-out;
+    }
+
+    .page.active {
+      left: 0;
+    }
+
+    h1 {
+      font-size: 4rem;
+      color: #1e3d59;
+      text-shadow: 2px 2px 5px #ccc;
+    }
+
+    p {
+      font-size: 1.8rem;
+      color: #333333;
+      max-width: 600px;
+      margin-top: 1rem;
+    }
+
+    button {
+      margin-top: 2rem;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #1e90ff;
+      color: white;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: background 0.3s;
+    }
+
+    button:hover {
+      background: #104e8b;
+    }
+
+    audio {
+      display: none;
+    }
+
+    .custom-alert {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #127c9c;
+      color: white;
+      padding: 1rem 2rem;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 9999;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .custom-alert.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .custom-alert.hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fondo decorativo -->
+  <div class="container"></div>
+
+  <!-- Páginas -->
+  <div class="page active" id="page1">
+    <h1>Hola buen día Puchamon</h1>
+    <p>Hoy quiero regalarte algo especial, una pequeña carta de invitación a ir a un telo, a sentirte feliz .</p>
+    <button onclick="nextPage()">Ver más</button>
+  </div>
+
+  <div class="page" id="page2">
+    <h1>Invitación al telo</h1>
+    <p>Vámonos pal telo a escuchar musica obviamente.</p>
+    <button onclick="nextPage()">Ver beneficios</button>
+  </div>
+
+  <div class="page" id="page3">
+    <h1>Beneficios</h1>
+    <p>Incluye trago si quieres, musica y 3 horas de puro jijiji.</p>
+    <button onclick="nextPage()">Sí</button>
+    <button onclick="notAvailable()">No</button>
+  </div>
+
+  <div class="page" id="page4">
+    <h1>Buena elección</h1>
+    <p>Cabe aclarar que nada aquí fue forzado. El botón de "No" simplemente no funcionó por cosas del destino 🫦🫦</p>
+    <button onclick="restart()">Inicio</button>
+  </div>
+
+  <!-- Alerta flotante personalizada -->
+  <div id="custom-alert" class="custom-alert hidden">
+    <p>Esta opción aún no está habilitada</p>
+  </div>
+
+  <!-- Script -->
+  <script>
+    // Navegación entre páginas
+    let currentPage = 1;
+
+    function nextPage() {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage++;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+    }
+
+    function restart() {
+      document.getElementById(`page${currentPage}`).classList.remove('active');
+      currentPage = 1;
+      document.getElementById(`page${currentPage}`).classList.add('active');
+    }
+
+    function notAvailable() {
+      const alertBox = document.getElementById("custom-alert");
+      alertBox.classList.remove("hidden");
+      alertBox.classList.add("show");
+
+      setTimeout(() => {
+        alertBox.classList.remove("show");
+        alertBox.classList.add("hidden");
+      }, 3000);
+    }
+  </script>
+
+</body>
+</html>
